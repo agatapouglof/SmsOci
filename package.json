@@ -1,0 +1,29 @@
+{
+  "name": "sms-oci",
+  "version": "1.0.0",
+  "description": "SMS SDK Orange Cote d'ivoire (send sms CIV)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sms",
+    "civ",
+    "sdk",
+    "Orange",
+    "orange",
+    "cote",
+    "d'ivoire",
+    "ci",
+    "oci"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "dotenv": "^16.0.0",
+    "lodash.deburr": "^4.1.0",
+    "node-cache": "^5.1.2",
+    "qs": "^6.10.3"
+  }
+}
