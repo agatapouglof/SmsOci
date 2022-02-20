@@ -1,6 +1,6 @@
 {
   "name": "sms-oci",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "SMS SDK Orange Cote d'ivoire (send sms CIV)",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,9 @@
     "ci",
     "oci"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "agatapouglof",
+  "license": "MIT",
+  "repository": "agatapouglof/SmsOci",
   "dependencies": {
     "axios": "^0.25.0",
     "dotenv": "^16.0.0",
