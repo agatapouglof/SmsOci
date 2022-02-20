@@ -1,6 +1,6 @@
 {
   "name": "sms-oci",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "SMS SDK Orange Cote d'ivoire (send sms CIV)",
   "main": "index.js",
   "scripts": {

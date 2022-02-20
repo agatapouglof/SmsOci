@@ -20,9 +20,12 @@ class SmsOci {
   }
 
   async sendSmsOci(recipientPhoneNumber, smsMessage) {
-    const data = formatDataForApi(recipientPhoneNumber, smsMessage);
+    const data = formatDataForApi(
+      recipientPhoneNumber,
+      smsMessage,
+      this.#senderPhoneNumber
+    );
     const accessToken = await getAccessToken(this.#authHeaderOci);
-
     const apiUrl = `${API_SEND_SMS_URL}/tel:${formatPhoneNumber(
       this.#senderPhoneNumber
     )}/requests`;
@@ -34,7 +37,9 @@ class SmsOci {
 
     try {
       const response = await sendRequest(apiUrl, "POST", data, headers);
-      console.log("message sended ok");
+      console.log(
+        `Sms Sended to ${recipientPhoneNumber} \ncontent : ${smsMessage}`
+      );
       return response;
     } catch (error) {
       console.error(error);
