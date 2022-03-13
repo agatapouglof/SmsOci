@@ -1,13 +1,15 @@
 require("dotenv").config();
 const nodeCache = require("node-cache");
 const cache = new nodeCache();
-const { API_SEND_SMS_URL } = require("./constants");
+const { API_SEND_SMS_URL, API_CONTRACTS_URL } = require("./constants");
 const { sendRequest } = require("./api");
 
 const {
   formatDataForApi,
   getAccessToken,
   formatPhoneNumber,
+  buildRequestHeaders,
+  getCivSmsData,
 } = require("./helpers");
 
 class SmsOci {
@@ -36,7 +38,7 @@ class SmsOci {
     };
 
     try {
-      const response = await sendRequest(apiUrl, "POST", data, headers);
+      const response = await sendRequest(apiUrl, headers, "POST", data);
       console.log(
         `Sms Sended to ${recipientPhoneNumber} \ncontent : ${smsMessage}`
       );
@@ -51,6 +53,21 @@ class SmsOci {
   smsStatistics() {}
 
   smspurchaseOrders() {}
+
+  async smsRemaining() {
+    const apiUrl = `${API_CONTRACTS_URL}`;
+    const headers = await buildRequestHeaders(this.#authHeaderOci);
+
+    try {
+      const response = await sendRequest(apiUrl, headers);
+      const civData = getCivSmsData(response);
+
+      return civData;
+    } catch (error) {
+      console.error(error);
+      cache.del("currentApiToken");
+    }
+  }
 }
 
 module.exports = SmsOci;

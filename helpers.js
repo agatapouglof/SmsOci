@@ -49,8 +49,28 @@ const formatDataForApi = (
   };
 };
 
+const buildRequestHeaders = async (authHeader) => {
+  const accessToken = await getAccessToken(authHeader);
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+    "Content-Type": "application/json",
+  };
+
+  return headers
+};
+
+
+const getCivSmsData = (apiResponse)  => {
+  const smsService = apiResponse.partnerContracts.contracts.find(e => e.service === "SMS_OCB");
+  const civSmsData = smsService.serviceContracts.find(e => e.country === 'CIV');
+
+  return civSmsData;
+}
+
 module.exports = {
   getAccessToken,
   formatPhoneNumber,
   formatDataForApi,
+  buildRequestHeaders,
+  getCivSmsData,
 };

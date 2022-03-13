@@ -26,5 +26,9 @@
     "lodash.deburr": "^4.1.0",
     "node-cache": "^5.1.2",
     "qs": "^6.10.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "babel-eslint": "^10.1.0"
   }
 }

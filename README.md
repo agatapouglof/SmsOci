@@ -10,8 +10,9 @@ Simple Node.js Sdk to send sms to a Number in CIV using Orange Côte d'ivoire (O
 ## Features
 
 - Send Sms to a Phone Number in Ivory Coast
+- Remaining Sms for CIV
 - See Sms Usage (TODO)
-- See purchase histoy (TODO)
+- See purchase history (TODO)
 
 
 ## Installation

@@ -6,9 +6,9 @@ const { API_OAUTH_TOKEN_V3_URL } = require("./constants");
 
 const sendRequest = async (
   url = "",
+  headers = {},
   method = "GET",
-  data = {},
-  headers = {}
+  data = {}
 ) => {
   try {
     const response = await axios({ method, url, data, headers });
@@ -18,7 +18,6 @@ const sendRequest = async (
   }
 };
 
-const buildRequestOptions = () => {};
 
 const getApiAccessToken = async (authHearder) => {
   const data = { grant_type: "client_credentials" };
