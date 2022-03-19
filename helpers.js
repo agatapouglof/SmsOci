@@ -1,5 +1,6 @@
-var deburr = require("lodash.deburr");
+const deburr = require("lodash.deburr");
 const nodeCache = require("node-cache");
+
 const cache = new nodeCache();
 const { SENDER_PHONE_NUMBER } = require("./constants");
 const { getApiAccessToken } = require("./api");
@@ -9,9 +10,8 @@ const { getApiAccessToken } = require("./api");
  * ******* PRIVATE FUNCTIONS *******
  */
 
-const cleanMessage = (message) => {
-  return deburr(message);
-};
+const cleanMessage = (message) => deburr(message);
+
 const cacheApiToken = (token, ttl = 3600) => {
   cache.set("currentApiToken", token, ttl);
 };
@@ -21,9 +21,7 @@ const cacheApiToken = (token, ttl = 3600) => {
  * ******* PUBLIC FUNCTIONS ******
  */
 
-const formatPhoneNumber = (phoneNumber) => {
-  return `+225${phoneNumber}`;
-};
+const formatPhoneNumber = (phoneNumber) => `+225${phoneNumber}`;
 
 const getAccessToken = async (authHearder) => {
   if (cache.has("currentApiToken")) return cache.get("currentApiToken");
@@ -35,7 +33,7 @@ const getAccessToken = async (authHearder) => {
 const formatDataForApi = (
   recipientPhoneNumber = "",
   message = "test Default message",
-  senderPhoneNumber = SENDER_PHONE_NUMBER
+  senderPhoneNumber = SENDER_PHONE_NUMBER,
 ) => {
   const formatedMessage = cleanMessage(message);
   return {
@@ -56,16 +54,15 @@ const buildRequestHeaders = async (authHeader) => {
     "Content-Type": "application/json",
   };
 
-  return headers
+  return headers;
 };
 
-
-const getCivSmsData = (apiResponse)  => {
-  const smsService = apiResponse.partnerContracts.contracts.find(e => e.service === "SMS_OCB");
-  const civSmsData = smsService.serviceContracts.find(e => e.country === 'CIV');
+const getCivSmsData = (apiResponse) => {
+  const smsService = apiResponse.partnerContracts.contracts.find((e) => e.service === "SMS_OCB");
+  const civSmsData = smsService.serviceContracts.find((e) => e.country === "CIV");
 
   return civSmsData;
-}
+};
 
 module.exports = {
   getAccessToken,

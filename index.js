@@ -1,5 +1,6 @@
 require("dotenv").config();
 const nodeCache = require("node-cache");
+
 const cache = new nodeCache();
 const { API_SEND_SMS_URL, API_CONTRACTS_URL } = require("./constants");
 const { sendRequest } = require("./api");
@@ -14,6 +15,7 @@ const {
 
 class SmsOci {
   #authHeaderOci;
+
   #senderPhoneNumber;
 
   constructor(authHeaderOci, senderPhoneNumber) {
@@ -25,11 +27,11 @@ class SmsOci {
     const data = formatDataForApi(
       recipientPhoneNumber,
       smsMessage,
-      this.#senderPhoneNumber
+      this.#senderPhoneNumber,
     );
     const accessToken = await getAccessToken(this.#authHeaderOci);
     const apiUrl = `${API_SEND_SMS_URL}/tel:${formatPhoneNumber(
-      this.#senderPhoneNumber
+      this.#senderPhoneNumber,
     )}/requests`;
 
     const headers = {
@@ -40,19 +42,21 @@ class SmsOci {
     try {
       const response = await sendRequest(apiUrl, headers, "POST", data);
       console.log(
-        `Sms Sended to ${recipientPhoneNumber} \ncontent : ${smsMessage}`
+        `Sms Sended to ${recipientPhoneNumber} \ncontent : ${smsMessage}`,
       );
       return response;
     } catch (error) {
       console.error(error);
       cache.del("currentApiToken");
+      return error;
     }
   }
+
   smsHistory() {}
 
   smsStatistics() {}
 
-  smspurchaseOrders() {}
+  smsPurchaseOrders() {}
 
   async smsRemaining() {
     const apiUrl = `${API_CONTRACTS_URL}`;
@@ -65,7 +69,9 @@ class SmsOci {
       return civData;
     } catch (error) {
       console.error(error);
+      // TODO: Better management of cache invalidation
       cache.del("currentApiToken");
+      return error;
     }
   }
 }

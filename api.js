@@ -8,16 +8,17 @@ const sendRequest = async (
   url = "",
   headers = {},
   method = "GET",
-  data = {}
+  data = {},
 ) => {
   try {
-    const response = await axios({ method, url, data, headers });
+    const response = await axios({
+      method, url, data, headers,
+    });
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
-
 
 const getApiAccessToken = async (authHearder) => {
   const data = { grant_type: "client_credentials" };
