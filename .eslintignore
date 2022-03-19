@@ -1,0 +1,12 @@
+*.lock
+*.log
+**/node_modules/*
+*.md
+*.yml
+*.yaml
+**/.yalc/*
+package.json
+**/dist/*
+**/.build/*
+**/.serverless/*
+**/package.json/*
